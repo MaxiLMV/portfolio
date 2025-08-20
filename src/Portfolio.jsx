@@ -249,7 +249,7 @@ export default function Portfolio() {
                 <div className="mt-4">
                   <h4 className="font-semibold mb-2">Core tools</h4>
                   <div className="flex flex-wrap gap-2 text-sm">
-                    {['Python', 'TypeScript', 'C#', 'C++', 'React', 'FastAPI', 'Flask', 'Qiskit', 'Pytest', 'OpenGL', 'ImGui'].map(t => (
+                    {['Python', 'TypeScript', 'C#', 'C++', 'React', 'Java', 'R', 'SQL', 'Azure', 'AWS'].map(t => (
                       <span key={t} className="px-3 py-1 rounded-full bg-gray-700">{t}</span>
                     ))}
                   </div>
