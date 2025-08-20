@@ -91,7 +91,8 @@ export default function Portfolio() {
   const [openAbout, setOpenAbout] = useState(false);
   const [openContact, setOpenContact] = useState(false);
   const [copiedToast, setCopiedToast] = useState(false);
-  const asset = (p) => `${process.env.PUBLIC_URL}${p.startsWith("/") ? "" : "/"}${p}`;
+
+  const anyOpen = !!openProject || openAbout || openContact;
 
   const CONTACT = {
     emails: ["pavlovskM@protonmail.com", "pavlovskij7@gmail.com"],
@@ -132,10 +133,18 @@ export default function Portfolio() {
     document.body.style.overflow = anyOpen ? "hidden" : "";
   }, [openProject, openAbout, openContact]);
 
+  // Dynamic tab title
+  useEffect(() => {
+    if (openProject) document.title = `${openProject.title} — Maksims Pavlovskis`;
+    else if (openAbout) document.title = 'About — Maksims Pavlovskis';
+    else if (openContact) document.title = 'Contact — Maksims Pavlovskis';
+    else document.title = 'Maksims Pavlovskis — Portfolio';
+  }, [openProject, openAbout, openContact]);
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       {/* Sticky Header */}
-      <header className="fixed top-0 left-0 w-full bg-gray-800 shadow-lg z-50">
+      <header className={`fixed top-0 left-0 w-full bg-gray-800 shadow-lg z-50 transition-opacity ${anyOpen ? 'opacity-50 pointer-events-none' : ''}`}>
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="w-32" />
           <nav className="flex space-x-4">
@@ -150,7 +159,7 @@ export default function Portfolio() {
       {/* Profile Section */}
       <section className="pt-32 pb-12 text-center">
         <img
-          src={asset("/images/profile.jpg")}
+          src="/images/profile.jpg"
           alt="Profile"
           className="w-64 h-64 mx-auto rounded-full border-4 border-gray-600 shadow-lg"
         />
@@ -167,7 +176,7 @@ export default function Portfolio() {
               key={p.id}
               onClick={() => setOpenProject(p)}
               className="group relative aspect-square rounded-lg overflow-hidden shadow-lg bg-gray-800 hover:scale-105 transform transition focus:outline-none">
-              <img src={asset(p.image)} alt={p.title} className="w-full h-full object-contain bg-gray-900 opacity-80 group-hover:opacity-100" />
+              <img src={p.image} alt={p.title} className="w-full h-full object-contain bg-gray-900 opacity-80 group-hover:opacity-100" />
               <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-4">
                 <h2 className="text-lg font-semibold text-white">{p.title}</h2>
                 <p className="text-sm text-gray-300">{p.year} – {p.duration}</p>
@@ -186,7 +195,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 md:grid-cols-5 gap-0">
               <div className="md:col-span-3 p-6 flex items-center justify-center">
                 <img
-                  src={asset(openProject.image)}
+                  src={openProject.image}
                   alt={openProject.title}
                   className="max-w-[70vw] max-h-[80vh] w-full h-auto object-contain rounded-lg"
                 />
@@ -229,7 +238,7 @@ export default function Portfolio() {
           <div className="absolute inset-0 bg-black/70" onClick={() => setOpenAbout(false)} />
           <div className="relative z-50 w-full max-w-3xl bg-gray-800 rounded-2xl shadow-xl overflow-auto max-h-[90vh] p-6 md:p-10">
             <div className="flex items-start gap-6">
-              <img src={asset("/images/profile.jpg")} alt="Profile" className="w-28 h-28 rounded-full border-2 border-gray-600" />
+              <img src="/images/profile.jpg" alt="Profile" className="w-28 h-28 rounded-full border-2 border-gray-600" />
               <div className="flex-1">
                 <h3 className="text-3xl font-bold mb-2">About Me</h3>
                 <p className="text-gray-300 mb-3">I'm a recent Computer Science & AI graduate (TSI & UWE) who enjoys building practical and diverse systems from graphics and tooling to NLP and quantum simulations.</p>
@@ -238,7 +247,7 @@ export default function Portfolio() {
                 <div className="mt-4">
                   <h4 className="font-semibold mb-2">Core tools</h4>
                   <div className="flex flex-wrap gap-2 text-sm">
-                    {['Python', 'TypeScript', 'C#', 'C++', 'React', 'R', 'Java', 'SQL'].map(t => (
+                    {['Python', 'TypeScript', 'C#', 'C++', 'React', 'FastAPI', 'Flask', 'Qiskit', 'Pytest', 'OpenGL', 'ImGui'].map(t => (
                       <span key={t} className="px-3 py-1 rounded-full bg-gray-700">{t}</span>
                     ))}
                   </div>
