@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function Portfolio() {
   const [projects] = useState([
     {
-      id: 5,
+      id: 8,
       title: "RAG NVIDIA PDF API",
       year: "2025",
       duration: "Less than a day",
@@ -20,7 +20,7 @@ export default function Portfolio() {
       repo: "https://github.com/MaxiLMV/rag_task"
     },
     {
-      id: 4,
+      id: 7,
       title: "Quantum Key Distribution (Thesis)",
       year: "2025",
       duration: "A week",
@@ -35,7 +35,41 @@ export default function Portfolio() {
       repo: "https://github.com/MaxiLMV/QKD_Thesis"
     },
     {
-      id: 3,
+      id: 6,
+      title: "CV Builder Web Application",
+      year: "2024",
+      duration: "Course Project",
+      category: "Web App - Group Project",
+      image: "/images/final-countdown-cv.png",
+      details: [
+        "Web application for generating CVs dynamically using a wizard-style form interface.",
+        "I was responsible for the full backend: built with Spring Boot, packaged as a Maven project.",
+        "Exposed REST API endpoints for CV data submission and retrieval, serving frontend form data and templates.",
+        "Included setup scripts and instructions for running the backend (`mvn spring-boot:run`) and dependency resolution.",
+        "Contributed to deployment readiness with CI-aware configuration in `.github/workflows`."
+      ],
+      tech: ["Java", "Spring Boot", "Maven", "REST API"],
+      repo: "https://github.com/Fnl-cntdwb/Final-countdown"
+    },
+    {
+      id: 5,
+      title: "AI Art vs Real Art Classifier Model",
+      year: "2025",
+      duration: "Two weeks",
+      category: "AI Model — Group Project",
+      image: "/images/ai-art-classifier.png",
+      details: [
+        "Group project focused on developing a model capable of detecting whether an artwork was AI-generated or human-made.",
+        "I contributed the evaluation pipeline in TensorFlow/Keras, including balanced dataset sampling and preprocessing.",
+        "Implemented test dataset generation, normalization, and evaluation against ground-truth labels.",
+        "Visualized performance with a confusion matrix and sample prediction plots.",
+        "Achieved reliable accuracy scores when testing across thousands of images."
+      ],
+      tech: ["Python", "TensorFlow", "Keras", "scikit-learn", "matplotlib", "NumPy"],
+      repo: null
+    },
+    {
+      id: 4,
       title: "3D Object Renderer",
       year: "2025",
       duration: "A week",
@@ -52,7 +86,7 @@ export default function Portfolio() {
       repo: "https://github.com/MaxiLMV/CG_Assignment2_79404"
     },
     {
-      id: 2,
+      id: 3,
       title: "Custom Vigenère Cipher",
       year: "2024",
       duration: "About a week",
@@ -67,6 +101,23 @@ export default function Portfolio() {
       ],
       tech: ["C#", ".NET", "WPF"],
       repo: "https://github.com/MaxiLMV/CustomVigenereCypher"
+    },
+    {
+      id: 2,
+      title: "Red Pill Cryptocurrency",
+      year: "2024",
+      duration: "1 Month",
+      category: "Web App — Group Project",
+      image: "/images/red-pill-crypto.png",
+      details: [
+        "Web app for monitoring cryptocurrency rates with chart carousel, sortable/filterable table, and currency conversions (EUR/USD).",
+        "Integrates the CoinGecko API for live market data and provides newsletter signup via a simple backend.",
+        "My contribution: built the application’s main layout and page structure/navigation for the frontend.",
+        "Frontend includes Chart.js charts and a DataTables-driven market table with CSV export.",
+        "Backend served with FastAPI/Uvicorn; project includes local run scripts and OpenAPI docs."
+      ],
+      tech: ["JavaScript", "Chart.js", "DataTables", "HTML", "CSS", "Python", "FastAPI", "Uvicorn", "CoinGecko API"],
+      repo: "https://github.com/Red-Pill-TSI/red-pill-cryptocurrency"
     },
     {
       id: 1,
@@ -135,7 +186,6 @@ export default function Portfolio() {
     document.body.style.overflow = anyOpen ? "hidden" : "";
   }, [openProject, openAbout, openContact]);
 
-  // Dynamic tab title
   useEffect(() => {
     if (openProject) document.title = `${openProject.title} — Maksims Pavlovskis`;
     else if (openAbout) document.title = 'About — Maksims Pavlovskis';
@@ -213,14 +263,20 @@ export default function Portfolio() {
                   ))}
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <a
-                    href={openProject.repo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-block px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:brightness-95"
-                  >
-                    View Repository
-                  </a>
+                  {openProject.repo ? (
+                    <a
+                      href={openProject.repo}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-block px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-medium hover:brightness-95"
+                    >
+                      View Repository
+                    </a>
+                  ) : (
+                    <span className="inline-block px-4 py-2 rounded-md bg-gray-600 text-gray-300 text-sm font-medium cursor-not-allowed">
+                      Repository Unavailable
+                    </span>
+                  )}
                   <button
                     onClick={() => setOpenProject(null)}
                     className="px-4 py-2 rounded-md bg-gray-700 text-white text-sm font-medium hover:bg-gray-600"
