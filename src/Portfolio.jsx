@@ -37,7 +37,7 @@ export default function Portfolio() {
     {
       id: 6,
       title: "CV Builder Web Application",
-      year: "2024",
+      year: "2025",
       duration: "Course Project",
       category: "Web App - Group Project",
       image: "/images/final-countdown-cv.png",
